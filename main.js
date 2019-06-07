@@ -14,7 +14,7 @@ function createMainWindow () {
 
   mainWindow.loadFile('./src/index.html')
 
-  mainWindow.webContents.openDevTools()
+  // mainWindow.webContents.openDevTools()
 
   mainWindow.on('closed', function () {
     mainWindow = null
