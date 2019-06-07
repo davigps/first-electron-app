@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Produtos</title>
+    <script>window.$ = window.JQuery = require('jquery')</script>
+    <script src="./index.js"></script>
+    <link rel="stylesheet" href="../photon/css/photon.css">
+    <style>
+      #search {
+        font-size: 16px;
+        width: 230px;
+        height: 25px;
+        margin-left: 15px;
+        margin-right: 3px;
+        float: left;
+      }
+      #searchDiv {
+        overflow: hidden;
+        height: 50px;
+        background-color: #ccc;
+        border: 1px solid #aaa;
+        display: flex;
+        align-items: center;
+        border-bottom: 4px solid #777
+      }
+      #labelSearch {
+        margin: 0;
+        font-size: 16px;
+        margin-left: 15px;
+      }
+      #title {
+        font-weight: bold;
+        font-size: 18px;
+      }
+      #iconSearch {
+        margin-left: 15px;
+        margin-right: 10px;
+      }
+      tr {
+        height: 50px;
+        font-size: 16px;
+        font-weight: bold;
+      }
+      #tableDiv {
+        height: 100%;
+        max-height: 100%;
+        overflow: scroll;
+        overflow-x: hidden;
+      }
+      .edit-menu {
+        border: 1px solid #ccc;
+        z-index: 100;
+        display: none;
+        width: 500px;
+        height: 450px;
+        position: absolute;
+        margin: auto;
+        font-size: 14px;
+        font-weight: bold;
+        -webkit-box-shadow: 0px 0px 0px 3200px rgba(0,0,0,0.41);
+        -moz-box-shadow: 0px 0px 0px 3200px rgba(0,0,0,0.41);
+        box-shadow: 0px 0px 0px 3200px rgba(0,0,0,0.41);
+      }
+      .product-header {
+        padding: 3px;
+      }
+      .form-menu {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+      }
+      .menu-label {
+        width: 250px;
+        font-size: 26px;
+        font-weight: bold;
+        text-align: center;
+        border: 1px solid #ccc;
+        border-top: 0px;
+        margin-bottom: 30px;
+        color: #333;
+        border-top-color: #c2c0c2;
+        border-right-color: #c2c0c2;
+        border-bottom-color: #a19fa1;
+        border-left-color: #c2c0c2;
+        background-color: #fcfcfc;
+        background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fcfcfc), color-stop(100%, #f1f1f1));
+        background-image: -webkit-linear-gradient(top, #fcfcfc 0%, #f1f1f1 100%);
+        background-image: linear-gradient(to bottom, #fcfcfc 0%, #f1f1f1 100%);
+      }
+      .input-label {
+        display: flex;
+        flex-direction: column;
+        margin: 30px 0px;
+        font-size: 16px;
+      }
+      .text-input {
+        border: 1px solid #ccc;
+      }
+      
+    </style>
+</head>
+
+<body>
+
+    <!-- Main Menu -->
+    <div window class="window">
+
+        <!-- Main Menu Header -->
+        <header class="toolbar toolbar-header toolbar-actions">        
+            <div class="toolbar-actions">
+
+                <h1 id="title" class="title">Lista de produtos</h1>
+        
+                <button id="addProduct" class="btn btn-large btn-default">
+                  <span class="icon icon-plus-circled icon-text"></span>
+                  Adicionar Produtos
+                </button>
+
+                <div class="btn-group pull-right">
+                  <button id="btnMinus" class="btn btn-large btn-default">
+                    <span class="icon icon-minus"></span>
+                  </button>
+                  <button id="btnPlus" class="btn btn-large btn-default">
+                    <span class="icon icon-popup"></span>
+                  </button>
+                  <button id="btnCancel" class="btn btn-large btn-default">
+                    <span class="icon icon-cancel"></span>
+                  </button>
+                </div>
+
+            </div>
+        </header>
+
+        <!-- Search Div -->
+        <div id="searchDiv">
+          <span id="iconSearch" class="icon icon-search"></span>
+          <label id="labelSearch">Pesquise o Produto:</label>
+          <input id="search" class="form-control" type="search" name="search" placeholder="Digite Aqui" autofocus="true">
+          <button id="eraseButton" class="btn btn-mini btn-default" style="height: 25px;"><span class="icon icon-erase"></span></button>
+        </div>
+
+        <!-- Main Menu Table -->
+        <div id="tableDiv">
+
+          <table class="table-striped">
+            <thead>
+              <tr>
+                <th style="width: 50%"><span class="icon icon-tag"></span> Nome do Produto</th>
+                <th style="width: 50%"><span class="icon icon-newspaper"></span> Código do Produto</th>
+                <th style="width: 110px"><span class="icon icon-docs"></span> Copiar</th>
+                <th style="width: 110px"><span class="icon icon-pencil"></span> Editar</th>
+                <th style="width: 110px"><span class="icon icon-cancel"></span> Excluir</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+
+        <!-- Main Menu Footer -->
+        <footer  style="display: flex;" class="toolbar toolbar-footer">
+            <p style="margin: 0 10px 0 5px;">Criado por Davi Sousa.</p>
+            <span class="icon icon-instagram"></span>
+            <p style="margin: 0 2.5px;">davig_sousa</p>
+        </footer>
+
+    </div>
+
+    <!-- Edit Menu -->
+    <div id="editMenu" class="window edit-menu">
+
+      <!-- Product Menu Header -->
+      <header class="toolbar product-header">
+
+        <span>Produto</span>
+
+        <button id="cancelProduct" class="btn btn-mini btn-default pull-right">
+            <span class="icon icon-cancel"></span>
+        </button>
+
+      </header>
+
+      <!-- Product Menu Context -->
+      <div class="form-menu toolbar">
+        <span id="editLabel" class="menu-label"></span>
+
+        <div class="input-label">
+          <div>
+            <span class="icon icon-tag"></span>
+            <span>Nome do Produto</span>
+          </div>
+          <input autofocus="false" id="inputName" class="form-control text-input" type="text" name="productName" mozactionhint="next">
+        </div>
+        <div class="input-label">
+          <div>
+            <span class="icon icon-newspaper"></span>
+            <span>Código do Produto</span>
+          </div>
+          <input autofocus='false' id="inputCode" class="form-control text-input" type="text" name="productCode" mozactionhint="done">
+        </div>
+
+        <button id="confirmButton" class="btn btn-large btn-default" style="font-size: 16px; margin-top: 10px;">Confirmar</button>
+
+        <p>- Aperte "Tab" para navegar entre os campos.<br>
+        - Aperte "Enter" para confirmar.<br>
+        - Aperte "Esc" para cancelar.</p>
+      </div>
+    
+    </div>
+
+</body>
+</html>
