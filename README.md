@@ -11,3 +11,4 @@ I made a product code search application for a mini-market in my city, since the
 " npm start "
 
 # Screenshot:
+![screenshot](https://github.com/davig-sousa/first-electron-app/blob/master/searchProducts.png)
