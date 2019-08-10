@@ -9,3 +9,5 @@ I made a product code search application for a mini-market in my city, since the
 " npm i "  
 - Then, you can open it using:  
 " npm start "
+
+# Screenshot:
