@@ -6,9 +6,9 @@ I made a product code search application for a mini-market in my city, since the
 # Install
 *You will need NPM, NodeJS and ElectronJS installed on your PC.*
 - Enter in project folder and just type in terminal:  
-" npm i "  
+`npm i`  
 - Then, you can open it using:  
-" npm start "
+`npm start`
 
 # Screenshot:
 ![screenshot](https://github.com/davig-sousa/first-electron-app/blob/master/screenshot.png)
