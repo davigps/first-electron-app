@@ -7,7 +7,7 @@
     "jquery": "^3.5.0"
   },
   "devDependencies": {
-    "electron": "^5.0.2"
+    "electron": "^13.6.6"
   },
   "scripts": {
     "start": "electron .",
